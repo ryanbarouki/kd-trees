@@ -1,0 +1,11 @@
+.vscode/
+.vs/
+x64/
+Debug/
+*.out
+*.exe
+*.pdb
+*.obj
+*.sln
+*.vcxproj
+*.vcxproj.*
