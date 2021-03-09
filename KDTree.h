@@ -21,5 +21,4 @@ public:
 	bool contains(Point const& p);
 private:
 	std::unique_ptr<Node> insert(std::unique_ptr<Node> node, Point const& p, int level);
-	std::unique_ptr<Node> contains(std::unique_ptr<Node> node, Point const& p, int level);
 };
