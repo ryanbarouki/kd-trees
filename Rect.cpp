@@ -28,7 +28,9 @@ double Rect::ymax() const
 
 bool Rect::contains(Point const& p) const
 {
-	return (m_xmin < p.x() < m_xmax) && (m_ymin < p.y() < m_ymax);
+	double x = p.x();
+	double y = p.y();
+	return (x > m_xmin) && (x < m_xmax) && (y > m_ymin) && (y < m_ymax);
 }
 
 bool Rect::intersects(Rect const& rect) const
