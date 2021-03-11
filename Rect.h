@@ -13,4 +13,5 @@ public:
 	double ymax() const;
 	bool contains(Point const& p) const;
 	bool intersects(Rect const& rect) const;
+	double distanceTo(Point const& p) const;
 };

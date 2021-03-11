@@ -20,6 +20,9 @@ int main()
 	std::cout << tree.contains(Point{ 12,75 }) << std::endl;
 	Rect rect(0, 0.5, 1, 1);
 	std::vector<Point> pointsInRange = tree.range(rect);
+	Point closest = tree.nearest(Point{ 0.5, 0.5 });
+
+	std::cout << "Nearest point to 0.5, 0.5 is: " << closest.x() << ", " << closest.y() << std::endl;
 	std::cout << "Hello, there. General Kenobi\n";
 	return 0;
 }

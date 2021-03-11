@@ -87,3 +87,42 @@ std::vector<Point> KDTree::range(Rect const& rect)
 	std::vector<Point> res;
 	return range(temp_ptr, rect, res);
 }
+
+Point KDTree::nearest(Point const& p)
+{
+	Point startPoint(INFINITY, INFINITY);
+	return nearest(root.get(), p, startPoint, 0); 
+}
+
+Point KDTree::nearest(Node* node, Point const& queryPoint, Point& winner, int level)
+{
+	if (node == nullptr) { return winner; }
+	double curr_dist = queryPoint.distanceTo(node->point);
+	double winner_dist = queryPoint.distanceTo(winner);
+	if (curr_dist < winner_dist)
+	{
+		winner = node->point;
+		winner_dist = curr_dist;
+	}
+	if (queryPoint.compare(node->point, level) < 0)
+	{
+		// query point is left/bottom of node so explore l/b first
+		winner = nearest(node->lb.get(), queryPoint, winner, (level + 1) % 2);
+		if (node->rt != nullptr && node->rt->rect.distanceTo(queryPoint) < winner.distanceTo(queryPoint))
+		{
+			// then we still need to explore the right branch
+			winner = nearest(node->rt.get(), queryPoint, winner, (level + 1) % 2);
+		}
+	}
+	else
+	{
+		// query point is right/top of the node so explore this first
+		winner = nearest(node->rt.get(), queryPoint, winner, (level + 1) % 2);
+		if (node->lb != nullptr && node->lb->rect.distanceTo(queryPoint) < winner.distanceTo(queryPoint))
+		{
+			// then we still need to explore the left branch
+			winner = nearest(node->lb.get(), queryPoint, winner, (level + 1) % 2);
+		}
+	}
+	return winner;
+}

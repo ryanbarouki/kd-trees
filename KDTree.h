@@ -23,7 +23,9 @@ public:
 	void insert(Point const& p);
 	bool contains(Point const& p);
 	std::vector<Point> range(Rect const& rect);
+	Point nearest(Point const& p);
 private:
 	std::unique_ptr<Node> insert(std::unique_ptr<Node> node, Point const& p, Rect const& rect, int level);
 	std::vector<Point> range(Node* node, Rect const& rect, std::vector<Point>& points);
+	Point nearest(Node* node, Point const& p, Point& winner, int level);
 };
